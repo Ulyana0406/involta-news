@@ -1,12 +1,15 @@
 import { defineStore } from 'pinia'
+import { useAsyncData } from '#app'
 
 export const useNewsStore = defineStore('news', {
     state: () => ({
         news: []
     }),
+
     actions: {
-        setNews(newsData) {
-            this.news = newsData
+        async fetchNews() {
+            const { data } = await useAsyncData('news', () => $fetch('/api/news'))
+            this.news = data.value || []
         }
     }
 })

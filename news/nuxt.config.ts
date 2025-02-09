@@ -5,9 +5,12 @@
 // })
 export default defineNuxtConfig({
   modules: ['@pinia/nuxt'],
+
   runtimeConfig: {
     public: {
       apiBase: 'https://api.com'
     }
-  }
+  },
+
+  compatibilityDate: '2025-02-09'
 })

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <header>
-      <h1>Новости</h1>
+      <h1>Список новостей</h1>
       <nav>
         <NuxtLink to="/">Главная</NuxtLink>
       </nav>
