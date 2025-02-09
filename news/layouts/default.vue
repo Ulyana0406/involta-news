@@ -1,9 +1,17 @@
 <template>
   <div class="container">
     <header>
-      <h1>Список новостей</h1>
-      <button @click="refreshNews">Обновить</button>
+      <div class="logo">
+        <h1>Список новостей</h1>
+        <img
+            src="@/assets/icons/refresh.png"
+            alt="Обновить"
+            @click="refreshNews"
+            class="refresh-icon"
+        />
+      </div>
     </header>
+    <div class="divider"></div>
     <main>
       <slot />
     </main>
@@ -12,7 +20,13 @@
 
 <script setup>
 import { useNewsStore } from '~/store/news'
+import { useHead } from '#imports'
 
+useHead({
+  bodyAttrs: {
+    style: 'background-color: #FBFBFB;'
+  }
+})
 const newsStore = useNewsStore()
 
 const refreshNews = async () => {
@@ -23,7 +37,9 @@ const refreshNews = async () => {
 
 <style scoped>
 .container {
+  font-family: Arial, sans-serif;
   margin: 0 auto;
+  max-width: 1060px;;
 }
 
 button {
@@ -37,5 +53,24 @@ button {
 
 button:hover {
   background-color: #0056b3;
+}
+
+.refresh-icon {
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+}
+.logo{
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  height: 113px;
+  align-items: center;
+}
+.divider {
+  width: 100%;
+  height: 1px;
+  background-color: #E5E5E5;
+  margin-bottom: 26px;
 }
 </style>
