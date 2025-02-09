@@ -47,7 +47,7 @@ const changeViewMode = (mode) => {
 onMounted(async () => {
 
   const source = route.query.source || ''
-  const page = route.query.page || ''
+  const page = route.query.page || 1
   changeFilter(source, page)
   await loadNews();
 
