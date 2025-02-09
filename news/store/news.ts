@@ -1,12 +1,10 @@
-import { defineStore } from 'pinia'
-import { useAsyncData } from '#app'
-
 export const useNewsStore = defineStore('news', {
     state: () => ({
         news: [],
         filteredNews: [],
         currentPage: 1,
         perPage: 4,
+        sourceFilter: '',
     }),
 
     getters: {
@@ -27,6 +25,7 @@ export const useNewsStore = defineStore('news', {
         },
 
         filterNewsBySource(source: string) {
+            this.sourceFilter = source
             if (source) {
                 this.filteredNews = this.news.filter(item => item.source === source)
             } else {
@@ -37,6 +36,12 @@ export const useNewsStore = defineStore('news', {
 
         setPage(page: number) {
             this.currentPage = page
+        },
+
+        resetFilters() {
+            this.sourceFilter = ''
+            this.filteredNews = [...this.news]
+            this.currentPage = 1
         }
     }
 })
