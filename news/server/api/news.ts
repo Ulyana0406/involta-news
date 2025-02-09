@@ -17,7 +17,9 @@ export default defineEventHandler(async () => {
                 title: item.title,
                 link: item.link,
                 date: item.pubDate,
-                source: source.name
+                source: source.name,
+                img: item.enclosure.url,
+                description: item.contentSnippet,
             }))
             news = [...news, ...items]
         } catch (error) {
