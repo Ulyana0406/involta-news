@@ -11,10 +11,10 @@ const loadNews = async () => {
   await newsStore.fetchNews()
 }
 
-const changeFilter = async (source) => {
-  await router.push({query: {source, page: 1}})
+const changeFilter = async (source, page = 1) => {
+  await router.push({query: {source, page: page}})
   await loadNews()
-  newsStore.filterNewsBySource(source)
+  newsStore.filterNewsBySource(source, page)
 }
 
 watch(() => route.query.source, (newSource) => {
@@ -44,11 +44,19 @@ const changeViewMode = (mode) => {
   }
 }
 
-onMounted(() => {
+onMounted(async () => {
+
+  const source = route.query.source || ''
+  const page = route.query.page || ''
+  changeFilter(source, page)
+  await loadNews();
+
   if (process.client) {
-    viewMode.value = localStorage.getItem('viewMode') || 'grid'
+    viewMode.value = localStorage.getItem('viewMode') || 'grid';
   }
-})
+
+});
+
 
 const visiblePages = computed(() => {
   const pages = []
@@ -69,7 +77,6 @@ const visiblePages = computed(() => {
     pages.push('...')
     pages.push(totalPages.value)
   }
-
   return pages
 })
 
@@ -161,7 +168,7 @@ const visiblePages = computed(() => {
       <button
           v-for="page in visiblePages"
           :key="page"
-          :class="{ active: page === currentPage }"
+          :class="{ active: page === +currentPage }"
           @click="page !== '...' && changePage(page)"
       >
         {{ page }}

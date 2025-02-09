@@ -23,15 +23,14 @@ export const useNewsStore = defineStore('news', {
             this.news = data.value || []
             this.filteredNews = [...this.news]
         },
-
-        filterNewsBySource(source: string) {
+        filterNewsBySource(source: string, page = 1) {
             this.sourceFilter = source
             if (source) {
                 this.filteredNews = this.news.filter(item => item.source === source)
             } else {
                 this.filteredNews = [...this.news]
             }
-            this.currentPage = 1
+            this.currentPage = page
         },
 
         setPage(page: number) {

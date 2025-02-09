@@ -21,6 +21,7 @@
 <script setup>
 import { useNewsStore } from '~/store/news'
 import { useHead } from '#imports'
+import {useRouter} from "#vue-router";
 
 useHead({
   bodyAttrs: {
@@ -28,9 +29,11 @@ useHead({
   }
 })
 const newsStore = useNewsStore()
-
+const router = useRouter()
 const refreshNews = async () => {
-  await newsStore.resetFilters()
+  const source =  ''
+  newsStore.filterNewsBySource('')
+  await router.push({query: {source, page: 1}})
   await newsStore.fetchNews()
 }
 </script>
