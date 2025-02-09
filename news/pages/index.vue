@@ -1,17 +1,28 @@
 <script setup>
+import { useRoute, useRouter } from 'vue-router'
 import { useNewsStore } from '~/store/news'
 
 const newsStore = useNewsStore()
+const route = useRoute()
+const router = useRouter()
 
 
 const loadNews = async () => {
   await newsStore.fetchNews()
 }
 
-
 const changeFilter = async (source) => {
+  await router.push({ query: { source } })
   await loadNews()
   newsStore.filterNewsBySource(source)
+}
+
+const filterSource = route.query.source || ''
+
+if (!filterSource) {
+  loadNews()
+} else {
+  newsStore.filterNewsBySource(filterSource)
 }
 </script>
 

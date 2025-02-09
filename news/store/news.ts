@@ -1,4 +1,3 @@
-// store/news.ts
 import { defineStore } from 'pinia'
 import { useAsyncData } from '#app'
 
