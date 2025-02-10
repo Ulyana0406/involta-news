@@ -145,8 +145,9 @@ const visiblePages = computed(() => {
           <img v-if="viewMode === 'list'" :src="item.img" alt="News Image" class="news-image" />
           <div :class="['news-source_title', viewMode]"   >{{ item.title }}</div>
           <div :class="['news_content', viewMode]" >
-            <div  class="news-source_title" >{{ item.title }}</div>
+            <a :href="item.link" target="_blank" class="news-source_title" >{{ item.title }}</a>
             <p  :class="['news-source_description', viewMode]"  >{{item.description}}</p>
+            <a :class="['news-item_a', viewMode]" :href="item.link" target="_blank">Подробнее</a>
           </div>
         </div>
         <div  :class="['news-source_div', viewMode]" >
@@ -309,12 +310,10 @@ const visiblePages = computed(() => {
 .news-item.grid {
   height: 256px;
   padding: 16px 30px;
-  //border: 1px solid #ccc;
   border-radius: 3px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  //box-shadow: 0px 1px 4px 0px #0000000D;
   box-shadow: 0px 2px 4px 0px #0000000D;
 }
 
@@ -322,6 +321,7 @@ const visiblePages = computed(() => {
   font-weight: bold;
   font-size: 18px;
   color:  #0029FF;
+  text-decoration: none;
 }
 .news-source_title.list{
   display: none;
@@ -401,5 +401,33 @@ const visiblePages = computed(() => {
 }
 .news-source_div.list{
   display: none
+}
+@media (max-width: 768px) {
+
+
+  .news-container.grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 20px;
+    margin-bottom: 50px;
+  }
+  .news-content_list.list{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-bottom: 31px;
+    padding-inline: 30px;
+  }
+  .news-item_a.list {
+    display: flex;
+    margin-bottom: 19px;
+    color:  #0029FF;
+    text-decoration: underline;
+  }
+  .news-image {
+    object-fit: cover;
+    width: 338px;
+    height: 166px;
+  }
 }
 </style>
