@@ -36,11 +36,12 @@ export const useNewsStore = defineStore('news', {
         setPage(page: number) {
             this.currentPage = page
         },
-
-        resetFilters() {
-            this.sourceFilter = ''
-            this.filteredNews = [...this.news]
-            this.currentPage = 1
+        filterNewsBySearch(searchQuery) {
+            this.filteredNews = this.news.filter(newsItem =>
+                newsItem.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                newsItem.description.toLowerCase().includes(searchQuery.toLowerCase())
+            );
         }
+
     }
 })
